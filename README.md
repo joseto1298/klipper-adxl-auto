@@ -31,12 +31,10 @@ bash setup.sh
 
 `setup.sh` hace todo automáticamente:
 
-1. Detecta el serial del ADXL conectado por USB
-2. Copia `adxl.cfg` a `~/printer_data/config/Accelerometer/` y escribe el serial
-3. Añade `[include ./Accelerometer/adxl_autodetect.cfg]` a tu `printer.cfg`
-4. Instala el override systemd que ejecuta `check_adxl.sh` antes de Klipper
-5. Añade `[update_manager klipper-adxl-auto]` a `moonraker.conf`
-6. Reinicia Klipper
+1. Copia `adxl.cfg` a `~/printer_data/config/Accelerometer/` y escribe el serial
+2. Añade `[include ./Accelerometer/adxl_autodetect.cfg]` a tu `printer.cfg`
+3. Instala `adxl-auto.conf` en systemd (ejecuta `check_adxl.sh` como `ExecStartPre`)
+4. Añade `[update_manager klipper-adxl-auto]` a `moonraker.conf`
 
 ## Cómo funciona
 
@@ -76,7 +74,7 @@ El update manager ya está configurado. Moonraker detectará nuevos commits en e
 ## Desinstalación
 
 ```bash
-sudo rm /etc/systemd/system/klipper.service.d/override.conf
+sudo rm /etc/systemd/system/klipper.service.d/adxl-auto.conf
 sudo systemctl daemon-reload
 sudo systemctl restart klipper
 ```
